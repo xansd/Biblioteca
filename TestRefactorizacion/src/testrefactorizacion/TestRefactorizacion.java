@@ -7,7 +7,7 @@ package testrefactorizacion;
 
 /**
  *
- * @author xavi
+ * @author Francisco Javier Taboada Aguado
  */
 public class TestRefactorizacion {
 

@@ -18,6 +18,7 @@ public class TestRefactorizacion {
         // TODO code application logic here
         cliente c=new cliente("IES de Rodeira");
         c.setDNI("345545");
+        c.setDir("Avda Ourense");
     }
     
 }

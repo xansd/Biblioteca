@@ -16,6 +16,7 @@ public class TestRefactorizacion {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        cliente c=new cliente("IES de Rodeira");
     }
     
 }

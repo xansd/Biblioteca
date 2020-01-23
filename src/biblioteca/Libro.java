@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca;
 
 /**
@@ -17,8 +12,8 @@ public class Libro {
     private int existencias;
     private int en_prestamo;
     
-    public Libro(String iban, String titulo, String autor, String resumen) {
-        this.isbn=iban;
+    public Libro(String isbn, String titulo, String autor, String resumen) {
+        this.isbn=isbn;
         this.titulo=titulo;
         this.autor=autor;
         this.resumen=resumen;
@@ -119,5 +114,10 @@ public class Libro {
     int addExistencias(int existencias) {
         this.existencias+=existencias;
         return this.existencias;
+    }
+    
+    @Override
+    public String toString() {
+        return isbn+": "+titulo+" ("+autor+")";
     }
 }

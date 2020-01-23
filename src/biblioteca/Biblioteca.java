@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca;
 
 import java.util.Scanner;
@@ -34,22 +29,50 @@ public class Biblioteca {
     }
 
     private static void socioApp() {
-        Menu m=new Menu(new String[]{"Consulta por Título","Consulta por Autor"});
+        Menu m=new Menu(new String[]{"Consulta por Título","Consulta por Autor","Información do Libro"});
         int opc;
-        String search;
+        String search=null;
         ArrayList <Libro> result;
+        Libro libro=null;
         GestorDatosInterface gd=new GestorDatos();
         
         do {
             opc=m.getOpcion();
-            if ((opc==1)||(opc==2)) {
-                System.out.println("Introduce palabras a buscar separadas por comas: ");
-                search=scn.nextLine();
-            }
             switch(opc) {
                 case 1: 
+                    System.out.println("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
+                    search=scn.nextLine();
+                    result=gd.consultaLibroPorTitulo(search);
+                    if (result.isEmpty())   System.out.println("Sin resultados");
+                    else                    showArray(result);
+                    break;
+                case 2: 
+                    System.out.println("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
+                    search=scn.nextLine();
+                    result=gd.consultaLibroPorTitulo(search);
+                    if (result.isEmpty())   System.out.println("Sin resultados");
+                    else                    showArray(result);
+                    break;
+                case 3:
+                    System.out.println("ISBN: ");
+                    search=scn.nextLine();
+                    libro=gd.consultaLibro(search);
+                    if (libro==null) System.out.println("Libro non atopado");
+                    else {
+                        System.out.println(libro);
+                        System.out.println("RESUMO: ");
+                        System.out.println(libro.getResumen());
+                        if (libro.getExistencias()<=libro.getEn_prestamo())
+                            System.out.println("\n Non Dispoñible");
+                        else
+                            System.out.println("\n Dispoñible");
+                    }
+                    break;
             }
         } while(true);
     }
     
+    private static void showArray(ArrayList al) {
+        for(Object obj: al) System.out.println(al);
+    }
 }

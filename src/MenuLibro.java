@@ -1,39 +1,21 @@
-package biblioteca;
 
-import java.util.Scanner;
+
 import Utils.Menu;
+import biblioteca.GestorDatos;
+import biblioteca.GestorDatosInterface;
+import biblioteca.Libro;
 import java.util.ArrayList;
 
 /**
  *
- * @author ASIR\xavi
+ * @author xavi
  */
-public class Biblioteca {
-    private static final String BIBLIOPASS="bibliotecario";
-    private static Scanner scn=new Scanner(System.in);
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        String pass;
-        
-        System.out.println("Introduce Contrasinal do Bibliotecario ou Enter para menú de Socio: ");
-        pass=scn.nextLine();
-        if (pass.equals(BIBLIOPASS)) biblioApp();
-        else                         socioApp();
-    }
-
-    private static void biblioApp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private static void socioApp() {
-        Menu m=new Menu(new String[]{"Consulta por Título","Consulta por Autor","Información do Libro"});
-        int opc;
-        String search=null;
+public class MenuLibro {
+    public static void menu(Menu m) {
+        int opc,nl;
+        String search;
         ArrayList <Libro> result;
-        Libro libro=null;
+        Libro libro;
         GestorDatosInterface gd=new GestorDatos();
         
         do {
@@ -41,21 +23,21 @@ public class Biblioteca {
             switch(opc) {
                 case 1: 
                     System.out.println("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
-                    search=scn.nextLine();
+                    search=Biblioteca.scn.nextLine();
                     result=gd.consultaLibroPorTitulo(search);
                     if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    showArray(result);
+                    else                    Biblioteca.showArray(result);
                     break;
                 case 2: 
                     System.out.println("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
-                    search=scn.nextLine();
+                    search=Biblioteca.scn.nextLine();
                     result=gd.consultaLibroPorTitulo(search);
                     if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    showArray(result);
+                    else                    Biblioteca.showArray(result);
                     break;
                 case 3:
                     System.out.println("ISBN: ");
-                    search=scn.nextLine();
+                    search=Biblioteca.scn.nextLine();
                     libro=gd.consultaLibro(search);
                     if (libro==null) System.out.println("Libro non atopado");
                     else {
@@ -68,11 +50,24 @@ public class Biblioteca {
                             System.out.println("\n Dispoñible");
                     }
                     break;
+                case 4:
+                    System.out.println("ISBN: ");
+                    search=Biblioteca.scn.nextLine();
+                    libro=gd.consultaLibro(search);
+                    if (libro!=null) {
+                        System.out.println("O libro xa existe: "+libro);
+                        System.out.println("Cantas unidades desexas engadir? (0- ):");
+                        try {
+                            nl=Integer.parseInt(Biblioteca.scn.nextLine());
+                            libro.addExistencias(nl);
+                            gd.guardaLibro(libro);
+                        } catch(Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                       System.out.println("Non se atopa o libro");
+                    }
             }
-        } while(true);
-    }
-    
-    private static void showArray(ArrayList al) {
-        for(Object obj: al) System.out.println(al);
+        } while(opc!=5);
     }
 }

@@ -4,98 +4,124 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
- * @author ASIR\xavi
- */
+ * Define un Préstamo
+ * @author Javier Taboada
+ * @author xavitag.es
+ * @version 1.0
+ * @since 1.0
+*/
 public class Prestamo {
-    private Socio socio;
+    /**
+     * Socio que realiza o préstamo
+     */
+    private Socio socio;    
+    /**
+     * Libro prestado
+     */
     private Libro libro;
+    /**
+     * Data do préstamo
+     */
     private java.sql.Date fprestamo;
+    /**
+     * Data límite de devolución
+     */
     private java.sql.Date fdevolucion;
+    /**
+     * true indica que non foi devolto, false que foi devolto
+     */
     private boolean status;
     
-    public Prestamo(Socio socio,Libro libro,java.sql.Date fprestamo) {
+    /**
+     * Crea un préstamo a partir dun Socio e un Libro
+     * @param socio - Socio que realiza o préstamo
+     * @param libro - Libro que realiza o préstamo
+     */
+    public Prestamo(Socio socio,Libro libro) {
         this.socio=socio;
         this.libro=libro;
-        this.fprestamo=fprestamo;
-        this.fdevolucion=addDays(fprestamo,7);
+        this.fprestamo=new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+        this.fdevolucion=addDays(this.fprestamo,7); // 7 días
         this.status=true;
-    }
-    
-    private static java.sql.Date addDays(Date date, int days) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, days);
-        return new java.sql.Date(c.getTimeInMillis());
     }
 
     /**
-     * @return the socio
+     * Constructor de copia. So se permite dentro do mesmo paquete
+     * @param p - Préstamo a copiar
      */
-    public Socio getSocio() {
+    Prestamo(Prestamo p) {
+        socio=new Socio(p.socio);
+        libro=new Libro(p.libro);
+        fprestamo=new java.sql.Date(p.fprestamo.getTime());
+        fdevolucion=new java.sql.Date(p.fdevolucion.getTime());
+        status=p.status;
+    }
+    
+    /**
+     * Devolve o socio que realizou o préstamo. NON devolve unha copia, a 
+     * modificación deste socio modificará o préstamo
+     * So utilizable dende o mesmo paquete
+     * @return devolve o socio
+     */
+    Socio getSocio() {
         return socio;
     }
 
     /**
-     * @param socio the socio to set
+     * Devolve o libro que realizou o préstamo. NON devolve unha copia, 
+     * a modificación deste socio modificará o préstamo. So utilizable dende o
+     * mesmo paquete
+     * @return o libro
      */
-    public void setSocio(Socio socio) {
-        this.socio = socio;
-    }
-
-    /**
-     * @return the libro
-     */
-    public Libro getLibro() {
+    Libro getLibro() {
         return libro;
     }
 
     /**
-     * @param libro the libro to set
+     * Devolve a data de préstamo. A alteración desta data altera o obxecto Préstamo
+     * So utilizable dende o mesmo paquete
+     * @return a data do préstamo
      */
-    public void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
-    /**
-     * @return the fprestamo
-     */
-    public java.sql.Date getFprestamo() {
+    java.sql.Date getFprestamo() {
         return fprestamo;
     }
 
     /**
-     * @param fprestamo the fprestamo to set
+     * Devolve a data de devolución do préstamo. A alteración desta data altera o obxecto Préstamo
+     * So utilizable dende o mesmo paquete
+     * @return a data de devolución
      */
-    public void setFprestamo(java.sql.Date fprestamo) {
-        this.fprestamo = fprestamo;
-    }
-
-    /**
-     * @return the fdevolucion
-     */
-    public java.sql.Date getFdevolucion() {
+    java.sql.Date getFdevolucion() {
         return fdevolucion;
     }
 
     /**
-     * @param fdevolucion the fdevolucion to set
-     */
-    public void setFdevolucion(java.sql.Date fdevolucion) {
-        this.fdevolucion = fdevolucion;
-    }
-
-    /**
-     * @return the status
+     * Devolve true si o préstamo está "activo" e false si está devolto
+     * @return Estado do préstamo (false indica xa devolto)
      */
     public boolean isStatus() {
         return status;
     }
 
     /**
+     * Cambia o estado do préstamo. So utilizable dende o mesmo paquete
      * @param status the status to set
      */
-    public void setStatus(boolean status) {
+    void setStatus(boolean status) {
         this.status = status;
+    }
+    
+    
+    /**
+     * Engade a data indicada un número de dias
+     * @param date - Data
+     * @param days - Número de días a engadir
+     * @return Data resultante
+     */    
+    private static java.sql.Date addDays(Date date, int days) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, days);
+        return new java.sql.Date(c.getTimeInMillis());
     }
 }

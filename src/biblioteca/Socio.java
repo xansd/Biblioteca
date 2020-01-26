@@ -6,17 +6,46 @@
 package biblioteca;
 
 /**
- *
- * @author ASIR\xavi
- */
+ * Define un Socio
+ * @author Javier Taboada
+ * @author xavitag.es
+ * @version 1.0
+ * @since 1.0
+*/
 public class Socio {
+    /**
+     * DNI do socio
+     */
     private String dni;
+    /**
+     * Nome e apelidos do socio
+     */
     private String nombre;
+    /**
+     * Dirección do socio
+     */
     private String direccion;
+    /**
+     * Teléfono do socio
+     */
     private String telefono;
+    /**
+     * Email do socio
+     */
     private String email;
+    /**
+     * Indica si o socio está activo (pode facer préstamos) ou non
+     */
     private boolean active;
     
+    /**
+     * Constructor
+     * @param dni - DNI
+     * @param nombre - Nome e Apelidos
+     * @param direccion - Dirección
+     * @param telefono - Teléfono
+     * @param email - Email
+     */
     public Socio(String dni,String nombre, String direccion,String telefono,String email) {
         this.dni=dni;
         this.nombre=nombre;
@@ -27,86 +56,64 @@ public class Socio {
     }
 
     /**
-     * @return the dni
+     * Construtor de copia. So utilizable dende este paquete
+     * @param s 
+     */
+    Socio(Socio s) {
+        this.dni=s.dni;
+        this.nombre=s.nombre;
+        this.direccion=s.direccion;
+        this.telefono=s.telefono;
+        this.email=s.email;
+        this.active=s.active;
+    }
+
+    /**
+     * Devolve o DNI do Socio
+     * @return o DNI
      */
     public String getDni() {
         return dni;
     }
 
-    /**
-     * @param dni the dni to set
-     */
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
 
     /**
-     * @return the nombre
+     * Devolve o nome e apelidos do socio
+     * @return nome e apelidos do socio
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the direccion
+     * Devolve a dirección do socio
+     * @return a dirección
      */
     public String getDireccion() {
         return direccion;
     }
 
     /**
-     * @param direccion the direccion to set
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    /**
-     * @return the telefono
+     * Devolve o teléfono do socio
+     * @return o teléfono
      */
     public String getTelefono() {
         return telefono;
     }
 
     /**
-     * @param telefono the telefono to set
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    /**
-     * @return the email
+     * Devolve o email do socio
+     * @return o email
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the active
+     * Indica si o socio pode facer préstamos ou non
+     * @return true (activo) ou false (inactivo)
      */
     public boolean isActive() {
         return active;
-    }
-
-    /**
-     * @param active the active to set
-     */
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

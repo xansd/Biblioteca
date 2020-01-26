@@ -4,14 +4,16 @@ package Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- * @author ASIR\xavi
- */
 public abstract class Menu {
     public ArrayList<String> opciones=new ArrayList <>();
     
+    public Menu() {  }
+    
     public Menu(String[] ops) {
+        setMenu(ops);
+    }
+
+    public void setMenu(String[] ops) {
         opciones.addAll(Arrays.asList(ops));
     }
     

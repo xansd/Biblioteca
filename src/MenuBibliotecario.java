@@ -21,7 +21,7 @@ public class MenuBibliotecario extends Menu {
                         break;
                 case 2: new MenuPrestamo().menu();
                         break;
-                case 3: new MenuLibro(ops).menu();
+                case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).menu();
                         break;
                 
             }

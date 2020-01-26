@@ -9,8 +9,17 @@ import java.util.ArrayList;
  * @author xavi
  */
 public class MenuLibro extends Menu {
-    MenuLibro(String[] m) {
-        super(m);
+    public enum Tipo {BIBLIOTECARIO,SOCIO};
+            
+    MenuLibro(MenuLibro.Tipo t) {
+        switch(t) {
+            case BIBLIOTECARIO: 
+                setMenu(new String[]{"Consulta por Título","Consulta por Autor","Información do Libro","Engadir Libro","Voltar"});
+                break;
+            case SOCIO:
+                setMenu(new String[] {"Busca por Título","Busca por Autor","Busca por ISBN"});
+                break;
+        }
     }
     
     public void menu() {

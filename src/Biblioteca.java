@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 import Utils.Utilidades;
 import biblioteca.GestorDatos;
 import biblioteca.GestorDatosInterface;
@@ -16,7 +15,7 @@ public class Biblioteca {
     public static GestorDatosInterface gd=new GestorDatos();       // Xestor para a base de datos
 
     /**
-     * @param args the command line arguments
+     * Método Principal.
      */
     public static void main(String[] args) {
         String pass;
@@ -38,6 +37,6 @@ public class Biblioteca {
      */
     private static void socioApp() {
         String[] ops={"Busca por Título","Busca por Autor","Busca por ISBN"};
-        new MenuLibro(ops).menu();
+        new MenuLibro(MenuLibro.Tipo.SOCIO).menu();
     }
 }

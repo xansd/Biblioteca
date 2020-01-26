@@ -11,10 +11,15 @@ import biblioteca.GestorDatosInterface;
 */
 public class Biblioteca {
     private static final String BIBLIOPASS="bibliotecario"; // Password do bibliotecario
-    public static GestorDatosInterface gd=new GestorDatos();       // Xestor para a base de datos
+
+    /**
+     *  Xestor para o acceso á "Base de Datos"
+     */
+    public static GestorDatosInterface gd=new GestorDatos();      
 
     /**
      * Método Principal.
+     * @param args 
      */
     public static void main(String[] args) {
         String pass;

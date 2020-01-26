@@ -12,6 +12,10 @@ import java.util.Arrays;
  * @since 1.0
 */
 public abstract class Menu {
+
+    /**
+     * Opcións do menú
+     */
     public ArrayList<String> opciones=new ArrayList <>();
     
     /**
@@ -56,7 +60,8 @@ public abstract class Menu {
     }
     
     /**
-     * Método abstracto a implementar. Realizará as accións correspondentes a cada opción
+     * Método abstracto a implementar.Realizará as accións correspondentes a cada opción
+     * @param opc - Opción a xestionar
      */
     public abstract void menu(int opc);   
     

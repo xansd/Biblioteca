@@ -13,7 +13,11 @@ import java.util.ArrayList;
  * @since 1.0
 */
 public class MenuLibro extends Menu {
-    public enum Tipo {BIBLIOTECARIO,SOCIO};  // Tipos de menú de Xestión de Libros
+
+    /**
+     * Tipos de menú de Xestión de Libros
+     */
+    public enum Tipo {BIBLIOTECARIO,SOCIO};  
          
     /**
      * Constructor

@@ -36,6 +36,7 @@ public class Prestamo {
      * Crea un préstamo a partir dun Socio e un Libro
      * @param socio - Socio que realiza o préstamo
      * @param libro - Libro que realiza o préstamo
+     * @throws java.lang.Exception - Erro facendo o préstamo
      */
     public Prestamo(Socio socio,Libro libro) throws Exception {
         if (libro==null) throw new Exception("Error Préstamo: Libro non existente");
@@ -127,6 +128,10 @@ public class Prestamo {
         return new java.sql.Date(c.getTimeInMillis());
     }
     
+    /**
+     *
+     * @return String representando un Obxecto Prestamo
+     */
     @Override
     public String toString() {
         return socio+" - "+libro+"\n"+"Prestado o "+fprestamo+"\n"+"A devolver "+fdevolucion;

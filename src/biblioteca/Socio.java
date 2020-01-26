@@ -112,6 +112,10 @@ public class Socio {
         return active;
     }
     
+    /**
+     *
+     * @return String representando o Obxecto Socio
+     */
     @Override
     public String toString() {
         return dni+": "+nombre;

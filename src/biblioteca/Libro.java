@@ -143,6 +143,10 @@ public class Libro {
         return this.existencias;
     } 
     
+    /**
+     *
+     * @return String representando un obxecto Libro
+     */
     @Override
     public String toString() {
         return isbn+": "+titulo+" ("+autor+")";

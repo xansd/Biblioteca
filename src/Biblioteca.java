@@ -1,4 +1,3 @@
-
 import Utils.Utilidades;
 import biblioteca.GestorDatos;
 import biblioteca.GestorDatosInterface;
@@ -29,14 +28,13 @@ public class Biblioteca {
      * Aplicación do Bibliotecario
      */
     private static void bibliotecarioApp() {
-        new MenuBibliotecario().menu();
+        new MenuBibliotecario().run();  // Lanzamos o menú de Bibliotecario
     }
     
     /**
      * Aplicación do Socio
      */
     private static void socioApp() {
-        String[] ops={"Busca por Título","Busca por Autor","Busca por ISBN"};
-        new MenuLibro(MenuLibro.Tipo.SOCIO).menu();
+        new MenuLibro(MenuLibro.Tipo.SOCIO).run(); // Lanzamos o menú de Socio
     }
 }

@@ -1,37 +1,69 @@
 package Utils;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Menu
+ * E unha clase abstracta da que se hereda o menú concreto
+ * @author Javier Taboada
+ * @author xavitag.es
+ * @version 1.0
+ * @since 1.0
+*/
 public abstract class Menu {
     public ArrayList<String> opciones=new ArrayList <>();
     
+    /**
+     * Constructor: Menú sin opcións
+     */
     public Menu() {  }
     
+    /**
+     * Constructor: Menú con opcións
+     * @param ops - Opcións do menú
+     */
     public Menu(String[] ops) {
         setMenu(ops);
     }
 
+    /**
+     * Pon opcións a este menú
+     * @param ops - Opcións do menú
+     */
     public void setMenu(String[] ops) {
         opciones.addAll(Arrays.asList(ops));
     }
     
-    public int getOpcion() {
-        int nops;
-        int opc;
+    /**
+     * Visualiza o menú e da a elexir unha das opcións do menú  
+     * @return opción elixida
+     */
+    public int run() {
+        int nops=0;
+        int opc=0;
         
         do {
             try {
                 nops=showMenu();
-                return Utilidades.getInt("Elixe Opcion: ",1,nops);
-            } catch (Exception ex) {}
-            System.out.println("\nOpción errónea \n");
-        } while(true);
+                opc=Utilidades.getInt("Elixe Opcion: ",1,nops);
+                menu(opc);
+            } catch (Exception ex) {
+                System.out.println("\nOpción errónea \n");
+            }
+        } while(opc!=nops);
+        return opc;
     }
     
-    public abstract void menu();   
+    /**
+     * Método abstracto a implementar. Realizará as accións correspondentes a cada opción
+     */
+    public abstract void menu(int opc);   
     
+    /**
+     * Visualiza o menú en pantalla
+     * @return numero de opcións que ten o menú
+     */
     private int showMenu() {
         int n=1;
         System.out.println("\nM E N U");

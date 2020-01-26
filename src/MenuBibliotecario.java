@@ -1,31 +1,39 @@
-
 import Utils.Menu;
 
 /**
- *
- * @author xavi
- */
+ * Menu de Bibliotecario
+ * Xestiona as opcións de xestión que pode usar o bibliotecario
+ * O menú do Bibliotecario é distinto do menú do Socio
+ * @author Javier Taboada
+ * @author xavitag.es
+ * @version 1.0
+ * @since 1.0
+*/
 public class MenuBibliotecario extends Menu {
+    /**
+     * Constructor
+     */
     MenuBibliotecario() {
         super(new String[]{"Xestión de Socios","Xestión de Préstamos","Xestión de Libros","Saír"});
     }
     
+    /**
+     * Accións do menú
+     * @param opc - Acción desexada
+     */
     @Override
-    public void menu() {
-        int opc;
-        String[] ops={"Consulta por Título","Consulta por Autor","Información do Libro","Engadir Libro","Voltar"};
-        do {
-            opc=getOpcion();
-            switch(opc) {
-                case 1: new MenuSocio().menu();
-                        break;
-                case 2: new MenuPrestamo().menu();
-                        break;
-                case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).menu();
-                        break;
-                
-            }
-        } while(opc!=4);
+    public void menu(int opc) {
+        switch(opc) {
+            // Xestión de Socios
+            case 1: new MenuSocio().run();
+                    break;
+            // Xestión de Prestamos
+            case 2: new MenuPrestamo().run();
+                    break;
+            // Xestión de Libros
+            case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).run();
+                    break;
+        }
     }
     
 }

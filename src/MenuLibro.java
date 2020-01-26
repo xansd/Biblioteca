@@ -1,16 +1,24 @@
-
 import Utils.Menu;
 import Utils.Utilidades;
 import biblioteca.Libro;
 import java.util.ArrayList;
 
 /**
- *
- * @author xavi
- */
+ * Menu de Libro
+ * Xestiona as opcións de xestión de Libros
+ * O menú do Bibliotecario é distinto do menú do Socio
+ * @author Javier Taboada
+ * @author xavitag.es
+ * @version 1.0
+ * @since 1.0
+*/
 public class MenuLibro extends Menu {
-    public enum Tipo {BIBLIOTECARIO,SOCIO};
-            
+    public enum Tipo {BIBLIOTECARIO,SOCIO};  // Tipos de menú de Xestión de Libros
+         
+    /**
+     * Constructor
+     * @param t - Tipo de menú de Libro desexado
+     */
     MenuLibro(MenuLibro.Tipo t) {
         switch(t) {
             case BIBLIOTECARIO: 
@@ -22,67 +30,72 @@ public class MenuLibro extends Menu {
         }
     }
     
-    public void menu() {
-        int opc,nl;
+    /**
+     * Accións do menú
+     * @param opc - Acción desexada
+     */
+    public void menu(int opc) {
+        int nl;
         String search;
         ArrayList <Libro> result;
         Libro libro;
-        
-        do {
-            opc=getOpcion();
-            switch(opc) {
-                case 1: 
-                    search=Utilidades.getString("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
-                    result=Biblioteca.gd.consultaLibroPorTitulo(search);
-                    if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Utilidades.showArray(result);
-                    break;
-                case 2: 
-                    search=Utilidades.getString("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
-                    result=Biblioteca.gd.consultaLibroPorAutor(search);
-                    if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Utilidades.showArray(result);
-                    break;
-                case 3:
-                    search=Utilidades.getString("ISBN: ");
-                    libro=Biblioteca.gd.consultaLibro(search);
-                    if (libro==null) System.out.println("Libro non atopado");
-                    else {
-                        System.out.println(libro);
-                        System.out.println("RESUMO: ");
-                        System.out.println(libro.getResumen());
-                        if (libro.getExistencias()<=libro.getEn_prestamo())
-                            System.out.println("\n Non Dispoñible");
-                        else
-                            System.out.println("\n Dispoñible");
+     
+        switch(opc) {
+            // Consulta de Libro por título
+            case 1: 
+                search=Utilidades.getString("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
+                result=Biblioteca.gd.consultaLibroPorTitulo(search);
+                if (result.isEmpty())   System.out.println("Sin resultados");
+                else                    Utilidades.showArray(result);
+                break;
+            // Consulta de Libro por Autor
+            case 2: 
+                search=Utilidades.getString("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
+                result=Biblioteca.gd.consultaLibroPorAutor(search);
+                if (result.isEmpty())   System.out.println("Sin resultados");
+                else                    Utilidades.showArray(result);
+                break;
+            // Consulta de Libro por ISBN
+            case 3:
+                search=Utilidades.getString("ISBN: ");
+                libro=Biblioteca.gd.consultaLibro(search);
+                if (libro==null) System.out.println("Libro non atopado");
+                else {
+                    System.out.println(libro);
+                    System.out.println("RESUMO: ");
+                    System.out.println(libro.getResumen());
+                    if (libro.getExistencias()<=libro.getEn_prestamo())
+                      System.out.println("\n Non Dispoñible");
+                    else
+                      System.out.println("\n Dispoñible");
                     }
                     break;
-                case 4:
-                    search=Utilidades.getString("ISBN: ");
-                    libro=Biblioteca.gd.consultaLibro(search);
-                    if (libro!=null) {
-                        System.out.println("O libro xa existe: "+libro);
-                        try {
-                            nl=Utilidades.getInt("Cantas unidades desexas engadir? (0-99):",0,99);
-                            libro.addExistencias(nl);
-                            Biblioteca.gd.guardaLibro(libro);
-                        } catch(Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } else {
-                        // Pedimos datos do libro
-                        String titulo=Utilidades.getString("Titulo: ");
-                        String autor=Utilidades.getString("Autor: ");
-                        String resumen=Utilidades.getString("Introduce un Resumo breve:");
-                        libro=new Libro(search,titulo,autor,resumen);
-                        try {
-                            Biblioteca.gd.guardaLibro(libro);
-                        } catch(Exception e) {
-                            System.out.println("ERROR: "+e.getMessage());
-                        }
+            // Alta de novos libros (So Bibliotecario)
+            case 4:
+                search=Utilidades.getString("ISBN: ");
+                libro=Biblioteca.gd.consultaLibro(search);
+                if (libro!=null) {
+                    System.out.println("O libro xa existe: "+libro);
+                    try {
+                        nl=Utilidades.getInt("Cantas unidades desexas engadir? (0-99):",0,99);
+                        libro.addExistencias(nl);
+                        Biblioteca.gd.guardaLibro(libro);
+                    } catch(Exception e) {
+                        System.out.println(e.getMessage());
                     }
-                    break;
-            }
-        } while(opc!=5);
+                } else {
+                    // Pedimos datos do libro
+                    String titulo=Utilidades.getString("Titulo: ");
+                    String autor=Utilidades.getString("Autor: ");
+                    String resumen=Utilidades.getString("Introduce un Resumo breve:");
+                    libro=new Libro(search,titulo,autor,resumen);
+                    try {
+                        Biblioteca.gd.guardaLibro(libro);
+                    } catch(Exception e) {
+                        System.out.println("ERROR: "+e.getMessage());
+                    }
+                }
+                break;
+        }
     }
 }

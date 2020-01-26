@@ -39,6 +39,18 @@ public class MenuSocio extends Menu {
                     System.out.println(socio.getDireccion());
                     System.out.println("TELEFONO: "+socio.getTelefono());
                     System.out.println("E-MAIL: "+socio.getEmail());
+                    System.out.print("Estado do Socio: ");
+                    if (socio.isActive()) System.out.println("ACTIVO");
+                    else                  System.out.println("INACTIVO");
+                    search=Utilidades.getString("Desexas cambiar o estado do socio (si/non):?");
+                    if (search.equals("si")) {
+                        socio.setActive(!socio.isActive());
+                        try {
+                           gd.guardaSocio(socio);
+                        } catch (Exception ex) {
+                           System.out.println("Erro desactivando socio");
+                        }
+                    }
                 }
                 break;
             // Alta de Socio

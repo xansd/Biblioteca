@@ -120,4 +120,12 @@ public class Socio {
     public String toString() {
         return dni+": "+nombre;
     }
+
+    /**
+     * Activa ou desactiva un socio de modo que se lle impidan o permitan préstamos
+     * @param b true activa, e false desactiva
+     */
+    public void setActive(boolean b) {
+        this.active=b;
+    }
 }

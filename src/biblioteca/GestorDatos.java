@@ -138,6 +138,7 @@ public class GestorDatos implements GestorDatosInterface {
         // Comprobo que non teña ese libro xa en préstamo
         if (consultaPrestamo(s.getDni(),l.getIsbn())!=null) 
             throw new LibroException(s+" Xa ten un exemplar en préstamo");
+        if (!s.isActive()) throw new LibroException("O socio non está activo.");
         
         l.incPrestamo();  
         guardaLibro(l); // Actualiza o libro en listaLibros

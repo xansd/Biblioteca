@@ -89,5 +89,22 @@ public interface GestorDatosInterface {
      * altera a información almacenada
      */
     public ArrayList <Prestamo> listaPendientes();
+ 
+    /**
+     * Devolve a lista de prestamos do socio co dni indicado. Si histórico é true inclúe
+     * tamén os préstamos xa devoltos
+     * @param dni - DNI do socio
+     * @param historico - true indica que se queren tamén os xa devoltos
+     * @return lista de préstamos
+     */
+    public ArrayList <Prestamo> prestamosSocio(String dni,boolean historico);
     
+    /**
+     * Devolve a lista de préstamos correspondentes ao libro indicado. Si histórico é true
+     * inclúe tamén os préstamos xa devoltos
+     * @param isbn - ISBN do libro
+     * @param historico - true indica que se queren tamén os xa devoltos
+     * @return lista de préstamos
+     */
+    public ArrayList <Prestamo> prestamosLibro(String isbn,boolean historico);
 }

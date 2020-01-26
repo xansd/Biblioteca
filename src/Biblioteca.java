@@ -1,7 +1,8 @@
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import Utils.Menu;
+import Utils.Utilidades;
+import biblioteca.GestorDatos;
+import biblioteca.GestorDatosInterface;
 
 /**
  * Aplicación BIBLIOTECA
@@ -11,8 +12,8 @@ import Utils.Menu;
  * @since 1.0
 */
 public class Biblioteca {
-    private static final String BIBLIOPASS="bibliotecario";
-    public static Scanner scn=new Scanner(System.in);
+    private static final String BIBLIOPASS="bibliotecario"; // Password do bibliotecario
+    public static GestorDatosInterface gd=new GestorDatos();       // Xestor para a base de datos
 
     /**
      * @param args the command line arguments
@@ -20,37 +21,23 @@ public class Biblioteca {
     public static void main(String[] args) {
         String pass;
         
-        System.out.println("Introduce Contrasinal do Bibliotecario ou Enter para menú de Socio: ");
-        pass=scn.nextLine();
+        pass=Utilidades.getString("Introduce Contrasinal do Bibliotecario ou Enter para menú de Socio: ");
         if (pass.equals(BIBLIOPASS)) bibliotecarioApp(); // Bibliotecario
         else                         socioApp();         // Socio
     }
 
+    /**
+     * Aplicación do Bibliotecario
+     */
     private static void bibliotecarioApp() {
-        int opc;
-        Menu m=new Menu(new String[]{"Xestión de Socios","Xestión de Préstamos","Xestión de Libros","Saír"});
-        Menu m_libro=new Menu(new String[]{"Consulta por Título","Consulta por Autor",
-                                     "Información do Libro","Engadir Libro","Voltar"});
-        do {
-            opc=m.getOpcion();
-            switch(opc) {
-                case 1: MenuSocio.menu();
-                        break;
-                case 2: MenuPrestamo.menu();
-                        break;
-                case 3: MenuLibro.menu(m_libro);
-                        break;
-                
-            }
-        } while(opc!=4);
+        new MenuBibliotecario().menu();
     }
     
+    /**
+     * Aplicación do Socio
+     */
     private static void socioApp() {
-        Menu m=new Menu(new String[]{"Busca por Título","Busca por Autor","Busca por ISBN"});
-        MenuLibro.menu(m);
-    }
-    
-    static void showArray(ArrayList al) {
-        for(Object obj: al) System.out.println(al);
+        String[] ops={"Busca por Título","Busca por Autor","Busca por ISBN"};
+        new MenuLibro(ops).menu();
     }
 }

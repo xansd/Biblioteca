@@ -29,13 +29,14 @@ public class GestorDatos implements GestorDatosInterface {
         ArrayList <Libro> result=new ArrayList <>();
         String pattern;
         titulo=titulo.replace(',', '|');
-        pattern=".*"+titulo+".*";
-        Pattern rx=Pattern.compile(pattern);
+        //pattern=".*"+titulo+".*";
+        pattern="\\b(?:"+titulo+")\\b";
+        Pattern rx=Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         
         for(Libro l: listaLibros.values()) {
            Matcher m = rx.matcher(l.getTitulo());
            // Gardo unha copia do libro para que non podan alterar o contido de listaLibros
-            if (m.matches()) result.add(new Libro(l)); 
+            if (m.find()) result.add(new Libro(l)); 
         }
         return result;
     }
@@ -52,13 +53,15 @@ public class GestorDatos implements GestorDatosInterface {
         String pattern;
         
         autor=autor.replace(',','|');
-        pattern=".*"+autor+".*";
-        Pattern rx=Pattern.compile(pattern);
+        //pattern=".*"+autor+".*";
+        pattern="\\b(?:"+autor+")\\b";
+        Pattern rx=Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         
         for(Libro l: listaLibros.values()) {
+            System.out.println("Comprobando: "+l.getAutor());
            Matcher m = rx.matcher(l.getAutor());
            // Gardo unha copia do libro para que non podan alterar o contido de listaLibros
-            if (m.matches()) result.add(new Libro(l)); 
+            if (m.find()) result.add(new Libro(l)); 
         }
         return result;
     }
@@ -166,6 +169,9 @@ public class GestorDatos implements GestorDatosInterface {
     @Override
     public void devolucion(Prestamo p) throws LibroException {
         Prestamo pr=buscaPrestamo(p.getSocio().getDni(),p.getLibro().getIsbn());
+        Libro l=pr.getLibro();
+        l.decPrestamo();
+        guardaLibro(l);
         if (pr!=null) pr.setStatus(false);  // Se modifica o obxecto contido no ArrayList
         else throw new LibroException("O prestamo non se atopa");
     }
@@ -213,4 +219,48 @@ public class GestorDatos implements GestorDatosInterface {
         }
         return lista;
     }
+
+    /**
+     * Devolve a lista de prestamos do socio co dni indicado. Si histórico é true inclúe
+     * tamén os préstamos xa devoltos
+     * @param dni - DNI do socio
+     * @param historico - true indica que se queren tamén os xa devoltos
+     * @return lista de préstamos
+     */
+    @Override
+    public ArrayList<Prestamo> prestamosSocio(String dni, boolean historico) {
+        ArrayList <Prestamo> lista=new ArrayList <>();
+            
+        for(Prestamo p: listaPrestamos) {
+            if (p.getSocio().getDni().equals(dni)) {
+                if (p.isStatus() || historico) {
+                    // Almaceno no ArrayList unha copia para que non se podan alterar os Prestamos de listaPrestamos
+                    lista.add(new Prestamo(p));
+                }
+            }
+        }
+        return lista;
+    }
+
+    /**
+     * Devolve a lista de préstamos correspondentes ao libro indicado. Si histórico é true
+     * inclúe tamén os préstamos xa devoltos
+     * @param isbn - ISBN do libro
+     * @param historico - true indica que se queren tamén os xa devoltos
+     * @return lista de préstamos
+     */
+    @Override
+    public ArrayList<Prestamo> prestamosLibro(String isbn, boolean historico) {
+         ArrayList <Prestamo> lista=new ArrayList <>();
+            
+        for(Prestamo p: listaPrestamos) {
+            if (p.getLibro().getIsbn().equals(isbn)) {
+                if (p.isStatus() || historico) {
+                    // Almaceno no ArrayList unha copia para que non se podan alterar os Prestamos de listaPrestamos
+                    lista.add(new Prestamo(p));
+                }
+            }
+        }
+        return lista;
+    }    
 }

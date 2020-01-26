@@ -116,4 +116,9 @@ public class Socio {
     public boolean isActive() {
         return active;
     }
+    
+    @Override
+    public String toString() {
+        return dni+": "+nombre;
+    }
 }

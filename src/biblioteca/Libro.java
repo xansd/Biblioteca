@@ -122,6 +122,16 @@ public class Libro {
         en_prestamo++;
         return en_prestamo;
     }
+    
+    /**
+     * Decrementa os exemplares prestados deste libro
+     * @return número de exemplares prestados
+     * @throws LibroException - Non se poden prestar máis exemplares
+     */
+    int decPrestamo() {
+        if (en_prestamo>0) en_prestamo--;
+        return en_prestamo;
+    }
 
     /**
      * Engade ao libro o número de exemplares indicados

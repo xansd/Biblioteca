@@ -1,8 +1,7 @@
 
 
 import Utils.Menu;
-import biblioteca.GestorDatos;
-import biblioteca.GestorDatosInterface;
+import Utils.Utilidades;
 import biblioteca.Libro;
 import java.util.ArrayList;
 
@@ -10,35 +9,35 @@ import java.util.ArrayList;
  *
  * @author xavi
  */
-public class MenuLibro {
-    public static void menu(Menu m) {
+public class MenuLibro extends Menu {
+    MenuLibro(String[] m) {
+        super(m);
+    }
+    
+    public void menu() {
         int opc,nl;
         String search;
         ArrayList <Libro> result;
         Libro libro;
-        GestorDatosInterface gd=new GestorDatos();
         
         do {
-            opc=m.getOpcion();
+            opc=getOpcion();
             switch(opc) {
                 case 1: 
-                    System.out.println("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
-                    search=Biblioteca.scn.nextLine();
-                    result=gd.consultaLibroPorTitulo(search);
+                    search=Utilidades.getString("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
+                    result=Biblioteca.gd.consultaLibroPorTitulo(search);
                     if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Biblioteca.showArray(result);
+                    else                    Utilidades.showArray(result);
                     break;
                 case 2: 
-                    System.out.println("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
-                    search=Biblioteca.scn.nextLine();
-                    result=gd.consultaLibroPorTitulo(search);
+                    search=Utilidades.getString("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
+                    result=Biblioteca.gd.consultaLibroPorAutor(search);
                     if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Biblioteca.showArray(result);
+                    else                    Utilidades.showArray(result);
                     break;
                 case 3:
-                    System.out.println("ISBN: ");
-                    search=Biblioteca.scn.nextLine();
-                    libro=gd.consultaLibro(search);
+                    search=Utilidades.getString("ISBN: ");
+                    libro=Biblioteca.gd.consultaLibro(search);
                     if (libro==null) System.out.println("Libro non atopado");
                     else {
                         System.out.println(libro);
@@ -51,22 +50,30 @@ public class MenuLibro {
                     }
                     break;
                 case 4:
-                    System.out.println("ISBN: ");
-                    search=Biblioteca.scn.nextLine();
-                    libro=gd.consultaLibro(search);
+                    search=Utilidades.getString("ISBN: ");
+                    libro=Biblioteca.gd.consultaLibro(search);
                     if (libro!=null) {
                         System.out.println("O libro xa existe: "+libro);
-                        System.out.println("Cantas unidades desexas engadir? (0- ):");
                         try {
-                            nl=Integer.parseInt(Biblioteca.scn.nextLine());
+                            nl=Utilidades.getInt("Cantas unidades desexas engadir? (0-99):",0,99);
                             libro.addExistencias(nl);
-                            gd.guardaLibro(libro);
+                            Biblioteca.gd.guardaLibro(libro);
                         } catch(Exception e) {
                             System.out.println(e.getMessage());
                         }
                     } else {
-                       System.out.println("Non se atopa o libro");
+                        // Pedimos datos do libro
+                        String titulo=Utilidades.getString("Titulo: ");
+                        String autor=Utilidades.getString("Autor: ");
+                        String resumen=Utilidades.getString("Introduce un Resumo breve:");
+                        libro=new Libro(search,titulo,autor,resumen);
+                        try {
+                            Biblioteca.gd.guardaLibro(libro);
+                        } catch(Exception e) {
+                            System.out.println("ERROR: "+e.getMessage());
+                        }
                     }
+                    break;
             }
         } while(opc!=5);
     }

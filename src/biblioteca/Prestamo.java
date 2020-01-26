@@ -37,7 +37,9 @@ public class Prestamo {
      * @param socio - Socio que realiza o préstamo
      * @param libro - Libro que realiza o préstamo
      */
-    public Prestamo(Socio socio,Libro libro) {
+    public Prestamo(Socio socio,Libro libro) throws Exception {
+        if (libro==null) throw new Exception("Error Préstamo: Libro non existente");
+        if (socio==null) throw new Exception("Error Préstamo: Socio non existente");
         this.socio=socio;
         this.libro=libro;
         this.fprestamo=new java.sql.Date(Calendar.getInstance().getTimeInMillis());
@@ -123,5 +125,10 @@ public class Prestamo {
         c.setTime(date);
         c.add(Calendar.DATE, days);
         return new java.sql.Date(c.getTimeInMillis());
+    }
+    
+    @Override
+    public String toString() {
+        return socio+" - "+libro+"\n"+"Prestado o "+fprestamo+"\n"+"A devolver "+fdevolucion;
     }
 }

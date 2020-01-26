@@ -6,60 +6,55 @@
 
 
 import Utils.Menu;
+import Utils.Utilidades;
 import biblioteca.GestorDatos;
 import biblioteca.GestorDatosInterface;
-import biblioteca.Libro;
-import java.util.ArrayList;
+import biblioteca.Socio;
 
-/**
- *
- * @author xavi
- */
-public class MenuSocio {
 
-    public static void menu() {
-        Menu m=new Menu(new String[]{"Consulta por DNI","Engadir Socio","Voltar"});
+public class MenuSocio extends Menu {
+    MenuSocio() {
+        super(new String[]{"Consulta por DNI","Engadir Socio","Voltar"});
+    }
+    
+    public void menu() {
         int opc;
+        Socio socio;
         String search;
-        ArrayList <Libro> result;
-        Libro libro;
-        GestorDatosInterface gd=new GestorDatos();
+        GestorDatosInterface gd=Biblioteca.gd;
         
         do {
-            opc=m.getOpcion();
+            opc=getOpcion();
             switch(opc) {
-                case 1: 
-                    System.out.println("BUSCA POR TITULO: Introduce palabras a buscar separadas por comas: ");
-                    search=Biblioteca.scn.nextLine();
-                    result=gd.consultaLibroPorTitulo(search);
-                    if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Biblioteca.showArray(result);
+                case 1:
+                    search=Utilidades.getString("DNI: ");
+                    socio=gd.consultaSocio(search);
+                    if (socio==null) System.out.println("Socio non atopado");
+                    else {
+                        System.out.println(socio);
+                        System.out.println(socio.getDireccion());
+                        System.out.println("TELEFONO: "+socio.getTelefono());
+                        System.out.println("E-MAIL: "+socio.getEmail());
+                    }
                     break;
                 case 2: 
-                    System.out.println("BUSCA POR AUTOR: Introduce palabras a buscar separadas por comas: ");
-                    search=Biblioteca.scn.nextLine();
-                    result=gd.consultaLibroPorTitulo(search);
-                    if (result.isEmpty())   System.out.println("Sin resultados");
-                    else                    Biblioteca.showArray(result);
-                    break;
-                case 3:
-                    System.out.println("ISBN: ");
-                    search=Biblioteca.scn.nextLine();
-                    libro=gd.consultaLibro(search);
-                    if (libro==null) System.out.println("Libro non atopado");
+                    search=Utilidades.getString("DNI: ");
+                    socio=gd.consultaSocio(search);
+                    if (socio!=null) System.out.println("O socio "+socio+" xa existe");
                     else {
-                        System.out.println(libro);
-                        System.out.println("RESUMO: ");
-                        System.out.println(libro.getResumen());
-                        if (libro.getExistencias()<=libro.getEn_prestamo())
-                            System.out.println("\n Non Dispoñible");
-                        else
-                            System.out.println("\n Dispoñible");
+                        String nombre=Utilidades.getString("Nome: ");
+                        String direccion=Utilidades.getString("Direccion: ");
+                        String telefono=Utilidades.getString("Teléfono: ");
+                        String email=Utilidades.getString("E-mail: ");
+                        socio=new Socio(search,nombre,direccion,telefono,email);
+                        try {
+                            gd.guardaSocio(socio);
+                        } catch(Exception e) {
+                            System.out.println("ERROR: "+e.getMessage());
+                        }
                     }
                     break;
             }
-        } while(opc!=4);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } while(opc!=3);
     }
-    
 }

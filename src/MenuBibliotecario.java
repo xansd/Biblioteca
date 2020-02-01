@@ -22,7 +22,7 @@ public class MenuBibliotecario extends Menu {
      * @param opc - Acción desexada
      */
     @Override
-    public void menu(int opc) {
+    public boolean menu(int opc) {
         switch(opc) {
             // Xestión de Socios
             case 1: new MenuSocio().run();
@@ -33,7 +33,9 @@ public class MenuBibliotecario extends Menu {
             // Xestión de Libros
             case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).run();
                     break;
+            case 4: return true;
         }
+        return false;
     }
     
 }

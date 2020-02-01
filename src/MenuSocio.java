@@ -23,7 +23,7 @@ public class MenuSocio extends Menu {
      * Accións do menú
      * @param opc - Acción desexada
      */
-    public void menu(int opc) {
+    public boolean menu(int opc) {
         Socio socio;
         String search;
         GestorDatosInterface gd=Biblioteca.gd;
@@ -71,6 +71,9 @@ public class MenuSocio extends Menu {
                     }
                 }
                 break;
+            case 3:
+                return true;
         }
+        return false;
     }
 }

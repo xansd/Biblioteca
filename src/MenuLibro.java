@@ -38,7 +38,7 @@ public class MenuLibro extends Menu {
      * Accións do menú
      * @param opc - Acción desexada
      */
-    public void menu(int opc) {
+    public boolean menu(int opc) {
         int nl;
         String search;
         ArrayList <Libro> result;
@@ -100,6 +100,9 @@ public class MenuLibro extends Menu {
                     }
                 }
                 break;
+            case 5:
+                return true;
         }
+        return false;
     }
 }

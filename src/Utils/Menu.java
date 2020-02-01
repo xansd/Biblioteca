@@ -44,18 +44,19 @@ public abstract class Menu {
      * @return opción elixida
      */
     public int run() {
-        int nops=0;
+        int nops;
         int opc=0;
+        boolean end=false;
         
         do {
             try {
                 nops=showMenu();
                 opc=Utilidades.getInt("Elixe Opcion: ",1,nops);
-                menu(opc);
+                end=menu(opc);
             } catch (Exception ex) {
                 System.out.println("\nOpción errónea \n");
             }
-        } while(opc!=nops);
+        } while(!end);
         return opc;
     }
     
@@ -63,7 +64,7 @@ public abstract class Menu {
      * Método abstracto a implementar.Realizará as accións correspondentes a cada opción
      * @param opc - Opción a xestionar
      */
-    public abstract void menu(int opc);   
+    public abstract boolean menu(int opc);   
     
     /**
      * Visualiza o menú en pantalla

@@ -21,7 +21,7 @@ public class MenuPrestamo extends Menu {
      * Accións do menú
      * @param opc - Acción desexada
      */
-    public void menu(int opc) {
+    public boolean menu(int opc) {
         String dni;
         String isbn;
         Prestamo p;
@@ -60,6 +60,9 @@ public class MenuPrestamo extends Menu {
                 lista=gd.listaPendientes();
                 Utilidades.showArray(lista);
                 break;
+            case 5:
+                return true;
         }
+        return false;
     }    
 }

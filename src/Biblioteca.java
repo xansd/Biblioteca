@@ -1,6 +1,6 @@
 import Utils.Utilidades;
+import biblioteca.GestorDatosCollections;
 import biblioteca.GestorDatos;
-import biblioteca.GestorDatosInterface;
 
 /**
  * Aplicación BIBLIOTECA
@@ -15,7 +15,7 @@ public class Biblioteca {
     /**
      *  Xestor para o acceso á "Base de Datos"
      */
-    public static GestorDatosInterface gd=new GestorDatos();      
+    public static GestorDatos gd=new GestorDatosCollections();      
 
     /**
      * Método Principal.
@@ -33,13 +33,13 @@ public class Biblioteca {
      * Aplicación do Bibliotecario
      */
     private static void bibliotecarioApp() {
-        new MenuBibliotecario().run();  // Lanzamos o menú de Bibliotecario
+        new MenuBibliotecario().choose();  // Lanzamos o menú de Bibliotecario
     }
     
     /**
      * Aplicación do Socio
      */
     private static void socioApp() {
-        new MenuLibro(MenuLibro.Tipo.SOCIO).run(); // Lanzamos o menú de Socio
+        new MenuLibro(MenuLibro.Tipo.SOCIO).choose(); // Lanzamos o menú de Socio
     }
 }

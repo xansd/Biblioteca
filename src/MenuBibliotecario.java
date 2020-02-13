@@ -25,13 +25,13 @@ public class MenuBibliotecario extends Menu {
     public boolean menu(int opc) {
         switch(opc) {
             // Xestión de Socios
-            case 1: new MenuSocio().run();
+            case 1: new MenuSocio().choose();
                     break;
             // Xestión de Prestamos
-            case 2: new MenuPrestamo().run();
+            case 2: new MenuPrestamo().choose();
                     break;
             // Xestión de Libros
-            case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).run();
+            case 3: new MenuLibro(MenuLibro.Tipo.BIBLIOTECARIO).choose();
                     break;
             case 4: return true;
         }

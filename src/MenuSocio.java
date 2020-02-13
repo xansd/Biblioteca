@@ -1,7 +1,7 @@
 import Utils.Menu;
 import Utils.Utilidades;
-import biblioteca.GestorDatosInterface;
 import biblioteca.Socio;
+import biblioteca.GestorDatos;
 
 /**
  * Menu de Socio
@@ -26,7 +26,7 @@ public class MenuSocio extends Menu {
     public boolean menu(int opc) {
         Socio socio;
         String search;
-        GestorDatosInterface gd=Biblioteca.gd;
+        GestorDatos gd=Biblioteca.gd;
         
         switch(opc) {
             // Consulta de Socio por DNI

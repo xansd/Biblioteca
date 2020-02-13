@@ -43,7 +43,7 @@ public abstract class Menu {
      * Visualiza o menú e da a elexir unha das opcións do menú  
      * @return opción elixida
      */
-    public int run() {
+    public int choose() {
         int nops;
         int opc=0;
         boolean end=false;
